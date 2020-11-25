@@ -1,0 +1,26 @@
+
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chauffeurId</title>
+   <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<h1> {{object.name}}</h1>
+
+<ul>
+
+    <li> {{object.date_of_birth}}</li>
+
+</ul>
+
+
+{% if user.request == 'Get' %}
+<button class="btn" ,  type="button"> send sms</button> {{call_chauffeur}}
+
+{% endif %}
+</body>
+</html>
