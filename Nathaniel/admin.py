@@ -1,6 +1,6 @@
 from django.contrib import admin
-from Nathaniel.models import Chauffeur , Scores
+from Nathaniel.models import Chauffeur , Score
 
 # Register your models here.
 admin.site.register(Chauffeur)
-admin.site.register(Scores)
+admin.site.register(Score)

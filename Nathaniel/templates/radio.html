@@ -9,16 +9,18 @@
 
 
 
-<form action method="post">
+<form action="{% url  'pick' chauffeur.id   %}" method="post">
   <label for="male">Male</label>
      {%csrf_token%}
     {% for chauffeur in chauffeurs %}
-  <input type="radio" name="gender" id="male" value<li>{{chauffeur}}</li>><br>
+    {% if chauffeur.name %}
+  <input type="radio" name="gender" value={{chauffeur.id}}  <li>{{chauffeur}}</li>><br>
   <label for="female">Female</label>
   <input type="radio" name="gender" id="female" value="victor"><br>
   <label for="other">Other</label>
   <input type="radio" name="gender" id="other" value="gerard"><br><br>
-  <input type="submit" value="Submit">
+    <button type="submit" name="gender" value={{chauffeur.id}}> </button>
+    {% endif %}
     {% endfor %}
 </form>
 

@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Nathaniel',  'twilio'
-]
+    'Nathaniel',  'twilio',
+    'phonenumber_field','phonenumbers' , 'flask','access']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'findchauffeur.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'chauffeur_project',
+        'NAME': 'new_chauffeur_project',
         'USER': 'postgres',
         'PASSWORD': 'Israel1948',
         'HOST': '127.0.0.1',
@@ -128,3 +128,11 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static'),]
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+LOGIN_REDIRECT_URL= 'home'
+
