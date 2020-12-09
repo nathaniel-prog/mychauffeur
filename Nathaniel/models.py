@@ -25,6 +25,25 @@ class Post(models.Model):
     author= models.ForeignKey(User,on_delete=models.CASCADE)
     body= models.TextField(default='whats in your mind ')
     other= models.CharField(max_length=225, default='yes')
+    num_phone = PhoneNumberField(unique=True, null=True, default='+972')
+
+
+
+    def save(self , *args , **kwargs):
+        if self.body and self.num_phone:
+            account_sid = 'AC0bfa41e3d8d3f121949b600d9b3d5831'
+            auth_token = 'd06b042acf3776f1c57bf14278b8dbde'
+            client = Client(account_sid, auth_token)
+
+            message = client.messages.create(
+                body=f' from{self.author}: {self.body} ',
+                from_='+12543312099',
+                to=f'{self.num_phone}',
+
+            )
+            print(message.sid)
+
+        return super().save(*args, **kwargs)
 
 
 
@@ -38,10 +57,12 @@ class Chauffeur(models.Model):
     name= models.CharField(max_length=125 , null=False)
     date_of_birth=models.DateField(default=date.today())
     date_inscription=models.DateField(default=date.today())
+    course=models.ForeignKey(User , null=True , on_delete=models.CASCADE)
 
     num_phone=PhoneNumberField(unique=True , null=True , default='+972')
     car= models.CharField(max_length=255 ,default='Regular car', null=False)
     car_image = models.ImageField(default='hotelsample.jpg', upload_to='images/', null=True)
+
 
 
 

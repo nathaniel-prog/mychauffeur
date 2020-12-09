@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Chauffeur , Score , Post , PhoneNumber
+from .models import Chauffeur , Score , Post , PhoneNumber , User
 from django.views.generic import ListView, DetailView , TemplateView
 from django.http import HttpResponse
 from .forms import SmsChauffeur , HomePost
@@ -57,12 +57,7 @@ class InvidChauffeurView(DetailView):
 
 
 
-def delete_score(request, id):
-    obj= get_object_or_404(Score,id='id' )
-    if request.method == 'POST':
-        obj.delete()
 
-    return render(request,'Nathaniel/selectoption.html', {'ws':ws})
 
 
 
