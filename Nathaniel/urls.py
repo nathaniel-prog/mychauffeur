@@ -16,6 +16,7 @@ urlpatterns = [
    path('sms',views.envoi_sms , name='sendsms'),
    path('radio', views.radio_label , name='radio'),
     path('hello', HomeView.as_view(),name='hello'),
+    path('home2' ,views.home_2 , name='home2')
 
     #path('pick<int:pk>', pickchauffeur(), name='pick')
 

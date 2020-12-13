@@ -76,7 +76,7 @@ class Chauffeur(models.Model):
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
-                body=f' salut  {self.name} ',
+                body=f' salut  {self.name} comment va tu ',
                 from_='+12543312099',
                 to=f'{self.num_phone}',
 

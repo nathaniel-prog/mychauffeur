@@ -21,5 +21,5 @@ def register(request):
             if form.is_valid():
                 user = form.save()
                 auth_login(request, user)
-            return HttpResponseRedirect('home')
+            return HttpResponseRedirect('home2')
 

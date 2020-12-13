@@ -100,7 +100,8 @@ class HomeView(TemplateView):
 
 
 
-
+def home_2(request):
+    return render(request , 'home2.html')
 
 
 
