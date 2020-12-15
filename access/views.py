@@ -23,3 +23,15 @@ def register(request):
                 auth_login(request, user)
             return HttpResponseRedirect('home2')
 
+
+def user_no_auth(request):
+    return render (request,'user_no_authenticate.html')
+
+
+def log_in(request):
+    return render(request, 'login.html'  )
+
+
+def login_driver(request):
+    return render(request, 'login_driver.html')
+

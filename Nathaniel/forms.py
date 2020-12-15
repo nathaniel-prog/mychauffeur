@@ -20,7 +20,7 @@ class SmsChauffeur(forms.ModelForm):
 
 
 class HomePost(forms.Form):
-    post=forms.CharField
+    post=forms.CharField(max_length=255)
 
 
 

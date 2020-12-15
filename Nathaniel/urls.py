@@ -10,8 +10,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
-   path('home',views.test,name='home'),
-   path('drivers', ChauffeurListView.as_view()),
+   path('test',views.test,name='test'),
+   path('drivers', ChauffeurListView.as_view(), name='drivers'),
    path('drivers<int:pk>',InvidChauffeurView.as_view(),name='driver'),
    path('sms',views.envoi_sms , name='sendsms'),
    path('radio', views.radio_label , name='radio'),
