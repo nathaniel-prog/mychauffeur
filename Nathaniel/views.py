@@ -8,7 +8,7 @@ from django.urls import reverse
 from .models import Chauffeur , Score , Post , PhoneNumber , User
 from django.views.generic import ListView, DetailView , TemplateView
 from django.http import HttpResponse
-from .forms import SmsChauffeur , HomePost
+from .forms import SmsChauffeur , HomePost , ScoreForm
 
 # Create your views here.
 
@@ -17,6 +17,16 @@ from .forms import SmsChauffeur , HomePost
 
 def test(request):
     return HttpResponse('je ffffff')
+
+def testing(request):
+    if request.method == 'POST':
+        form_score=ScoreForm(request.Post)
+        if form_score:
+            if form_score.is_valid():
+                inc_score=form_score+1
+            return render(request , 'testscore.html',{'inc_score':inc_score})
+
+
 
 
 class ChauffeurListView(ListView):
