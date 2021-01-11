@@ -71,8 +71,8 @@ class Chauffeur(models.Model):
 
     def save(self , *args , **kwargs):
         if self.name and self.num_phone:
-            account_sid = 'AC0bfa41e3d8d3f121949b600d9b3d5831'
-            auth_token = 'd06b042acf3776f1c57bf14278b8dbde'
+            account_sid = ''
+            auth_token = ''
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
@@ -95,8 +95,8 @@ class Score(models.Model):
     def save(self, *args, **kwargs):
         if self.result:
             self.result+=13
-            account_sid = 'AC0bfa41e3d8d3f121949b600d9b3d5831'
-            auth_token = 'd06b042acf3776f1c57bf14278b8dbde'
+            account_sid = ''
+            auth_token = ''
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
