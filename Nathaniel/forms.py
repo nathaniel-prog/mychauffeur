@@ -23,6 +23,12 @@ class HomePost(forms.Form):
     post=forms.CharField(max_length=255)
 
 
+class ScoreForm(forms.ModelForm):
+    class Meta:
+        model = Score
+        fields = ['result']
+
+
 
 
 
