@@ -11,10 +11,9 @@
 
 {% block content %}
 
-{% load crispy_forms_tags %}
 <form method="POST" class="form-group">
     <table>
-        {{ form|crispy }}
+        {{ form}}
     </table>
     {% csrf_token %}
 

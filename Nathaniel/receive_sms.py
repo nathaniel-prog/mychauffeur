@@ -6,14 +6,18 @@ from twilio.twiml.messaging_response import MessagingResponse
 
 
 
+
 app= Flask(__name__)
 
 
 
 @app.route("/sms", methods=['GET', 'POST'])
-def send_sms():
+def send_sms(request=None):
+    while request is not None:
+        resp.message('il est temps !!')
+
     resp=MessagingResponse()
-    resp.message('il est temps !!')
+
 
 
     return str(resp)

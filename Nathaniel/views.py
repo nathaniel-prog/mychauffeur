@@ -1,14 +1,15 @@
 
 from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponseRedirect
-
+from django.contrib.auth import login as auth_login , authenticate
+import asyncio
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Chauffeur , Score , Post , PhoneNumber , User
 from django.views.generic import ListView, DetailView , TemplateView
 from django.http import HttpResponse
-from .forms import SmsChauffeur , HomePost , ScoreForm
+from .forms import SmsChauffeur , HomePost 
 
 # Create your views here.
 
@@ -16,15 +17,22 @@ from .forms import SmsChauffeur , HomePost , ScoreForm
 
 
 def test(request):
-    return HttpResponse('je ffffff')
+    return HttpResponse('je ffffffouuuuu')
 
 def testing(request):
     if request.method == 'POST':
         form_score=ScoreForm(request.Post)
-        if form_score:
-            if form_score.is_valid():
-                inc_score=form_score+1
-            return render(request , 'testscore.html',{'inc_score':inc_score})
+        if form_score.is_valid():
+                new_score=(form_score.instance + 2)
+                return render(request, 'testscore.html', {'new_score': new_score})
+    else:
+        if request.method == 'GET':
+            form_score = ScoreForm()
+        return render(request, 'testscore.html', {'form_score': form_score})
+
+
+
+
 
 
 
@@ -32,6 +40,9 @@ def testing(request):
 class ChauffeurListView(ListView):
     model = Chauffeur
     template_name = 'drivers.html'
+
+
+
 
 
 def envoi_sms(request):
@@ -65,6 +76,14 @@ class InvidChauffeurView(DetailView):
 
 
 
+
+def envoi_multiple(request):
+    all = Chauffeur.objects.all()
+    if request.method== 'GET':
+        for obj in all:
+            see=obj.save()
+    
+        return render(request,'multiple.html',{  'see':see })
 
 
 
@@ -113,6 +132,11 @@ class HomeView(TemplateView):
 def home_2(request):
     return render(request , 'home2.html')
 
+
+def auto_create(request):
+    if request.method == 'GET':
+        with open ('new_file.html', 'x') as f :
+            f.read 
 
 
 

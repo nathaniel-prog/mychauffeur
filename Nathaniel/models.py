@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import date
 from twilio.rest import Client
 from twilio.twiml.voice_response import VoiceResponse, Say
+from .secret import key_account_sid , key_auth_token
 
 import phonenumbers
 import phonenumber_field
@@ -31,8 +32,8 @@ class Post(models.Model):
 
     def save(self , *args , **kwargs):
         if self.body and self.num_phone:
-            account_sid = 'AC0bfa41e3d8d3f121949b600d9b3d5831'
-            auth_token = 'd06b042acf3776f1c57bf14278b8dbde'
+            account_sid = key_account_sid
+            auth_token = key_auth_token
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
@@ -70,20 +71,21 @@ class Chauffeur(models.Model):
         return str(self.name)
 
     def save(self , *args , **kwargs):
-        if self.name and self.num_phone:
-            account_sid = 'AC0bfa41e3d8d3f121949b600d9b3d5831'
-            auth_token = 'd06b042acf3776f1c57bf14278b8dbde'
-            client = Client(account_sid, auth_token)
-
-            message = client.messages.create(
-                body=f' salut  {self.name} comment va tu ',
+        account_sid = key_account_sid
+        auth_token = key_auth_token
+        client = Client(account_sid, auth_token)
+        message = client.messages.create(
+                body=f'  {self.name} hii  ',
                 from_='+12543312099',
                 to=f'{self.num_phone}',
 
             )
-            print(message.sid)
+        print(message.sid)
 
         return super().save(*args, **kwargs)
+
+
+
 
 
 class Score(models.Model):
@@ -95,8 +97,8 @@ class Score(models.Model):
     def save(self, *args, **kwargs):
         if self.result:
             self.result+=13
-            account_sid = 'AC0bfa41e3d8d3f121949b600d9b3d5831'
-            auth_token = 'd06b042acf3776f1c57bf14278b8dbde'
+            account_sid = key_account_sid
+            auth_token = key_auth_token
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
