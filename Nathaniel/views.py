@@ -16,7 +16,7 @@ from .forms import SmsChauffeur , HomePost , ScoreForm
 
 
 def test(request):
-    return HttpResponse('je ffffff')
+    return HttpResponse('je commence a comprendre git')
 
 def testing(request):
     if request.method == 'POST':
