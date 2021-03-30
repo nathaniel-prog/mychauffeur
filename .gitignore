@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+/Nathaniel/models.py
+deco.py
+*.cpython-38.pyc
+.idea
+newenv
+python-getting-started
+Nathaniel/__pycache__/
+access/__pycache__
+ngrok.exe
+ngrok1.exe

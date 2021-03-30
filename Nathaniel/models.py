@@ -4,7 +4,8 @@ from datetime import date
 from twilio.rest import Client
 from twilio.twiml.voice_response import VoiceResponse, Say
 from .secret import key_account_sid , key_auth_token
-
+import requests
+from Nathaniel.insert_function import with_city
 import phonenumbers
 import phonenumber_field
 from django.conf import settings
@@ -19,16 +20,23 @@ from . import receive_sms
 
 
 
-
+res = requests.get('https://ipinfo.io/')
+data= res.json()
 
 class Post(models.Model):
     titre= models.CharField(max_length=150,default='it was nice', null=True)
     author= models.ForeignKey(User,on_delete=models.CASCADE)
-    body= models.TextField(default='whats in your mind ')
+    body= models.TextField(default='where do you want to go ? ')
     other= models.CharField(max_length=225, default='yes')
-    num_phone = PhoneNumberField(unique=True, null=True, default='+972')
+    num_phone = PhoneNumberField( null=True, default='+972')
 
+    def localinfo(self):
+        if self.author:
+            return with_city()
 
+    def shoutafout(self):
+        if len(self.titre=='ashdod')>1:
+            return 'someone looking for ashdod too'
 
     def save(self , *args , **kwargs):
         if self.body and self.num_phone:
@@ -37,7 +45,7 @@ class Post(models.Model):
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
-                body=f' from{self.author}: {self.body} ',
+                body=(' from  you are in : {} {} '.format(Post.localinfo(self),self.author)),
                 from_='+12543312099',
                 to=f'{self.num_phone}',
 
@@ -83,6 +91,10 @@ class Chauffeur(models.Model):
         print(message.sid)
 
         return super().save(*args, **kwargs)
+
+    def localinfo(self):
+        if self.course:
+            return with_city()
 
 
 

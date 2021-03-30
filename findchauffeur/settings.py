@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Nathaniel',  'twilio',
-    'phonenumber_field','phonenumbers' , 'flask','access']
+    'phonenumber_field','phonenumbers' , 'flask','access', 'pygeoip']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,7 +135,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-LOGIN_REDIRECT_URL= 'home'
+LOGIN_REDIRECT_URL= 'home2'
 
-LOGOUT_REDIRECT_URL= 'base'
+LOGOUT_REDIRECT_URL= 'welcome'
+
 

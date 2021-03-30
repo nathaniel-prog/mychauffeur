@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>login</title>
-</head>
-<body>
+
+
+
+
+
 
 
 <h1>Login</h1>
 
 {% block content %}
 
+
 <form method="POST" class="form-group">
     <table>
-        {{ form}}
+        {{ form }}
     </table>
     {% csrf_token %}
 
@@ -25,13 +24,3 @@
 
 {% endblock %}
 
-
-
-
-
-
-
-
-
-</body>
-</html>

@@ -14,8 +14,16 @@ from django.apps import apps
 class SmsChauffeur(forms.ModelForm):
     class Meta:
         model= Chauffeur
-        fields=['name' , 'date_of_birth', 'car' , 'num_phone' ]
+        fields=['name' , 'date_of_birth', 'car' , 'num_phone'  ]
 
+
+
+
+
+class Ask_destination(forms.ModelForm):
+    class Meta:
+        model= Post
+        fields=['titre','author',  'body', 'num_phone' ]
 
 
 

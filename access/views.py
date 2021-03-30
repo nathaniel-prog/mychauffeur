@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import User
 from django.contrib.auth import login as auth_login , authenticate
-from .form import MyUserCreationForm
+from .form import MyUserCreationForm , NewChauffeur
 from .models import User
 from django.http import HttpResponseRedirect
 
@@ -33,5 +33,21 @@ def log_in(request):
 
 
 def login_driver(request):
-    return render(request, 'login_driver.html')
+    if request.method == 'GET':
+        form = NewChauffeur()
+        return render(request, 'login_driver.html', {'form': form})
 
+    else:
+
+        if request.method == 'POST':
+            form = NewChauffeur(request.POST)
+            if form.is_valid():
+                user = form.save()
+            return HttpResponseRedirect('home2')
+
+
+
+
+
+def welcome(request):
+    return render (request,'welcome.html')

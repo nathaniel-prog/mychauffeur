@@ -1,15 +1,17 @@
 
 from django.shortcuts import render , redirect , get_object_or_404
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login as auth_login
+
 from django.contrib.auth import login as auth_login , authenticate
 import asyncio
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+
 from django.urls import reverse
 from .models import Chauffeur , Score , Post , PhoneNumber , User
 from django.views.generic import ListView, DetailView , TemplateView
-from django.http import HttpResponse
-from .forms import SmsChauffeur , HomePost 
+from django.http import HttpResponse , HttpResponseRedirect
+from .forms import SmsChauffeur , HomePost , Ask_destination
 
 # Create your views here.
 
@@ -19,16 +21,10 @@ from .forms import SmsChauffeur , HomePost
 def test(request):
     return HttpResponse('je ffffffouuuuu')
 
-def testing(request):
-    if request.method == 'POST':
-        form_score=ScoreForm(request.Post)
-        if form_score.is_valid():
-                new_score=(form_score.instance + 2)
-                return render(request, 'testscore.html', {'new_score': new_score})
-    else:
-        if request.method == 'GET':
-            form_score = ScoreForm()
-        return render(request, 'testscore.html', {'form_score': form_score})
+
+def listofuser(request):
+    _all= User.objects.all()
+    return render(request,'all_users.html', {'all': _all})
 
 
 
@@ -45,6 +41,12 @@ class ChauffeurListView(ListView):
 
 
 
+
+
+
+
+
+
 def envoi_sms(request):
     if request.method == 'POST':
         form = SmsChauffeur(request.POST )
@@ -54,6 +56,18 @@ def envoi_sms(request):
     else:
         form= SmsChauffeur()
         return render(request ,'sms.html',{'form':form} )
+
+
+
+def ask_dest(request):
+    if request.method == 'POST':
+        form = Ask_destination(request.POST )
+        if form.is_valid():
+            user=form.save()
+            return HttpResponseRedirect('')
+    else:
+        form= Ask_destination()
+        return render(request ,'ask_desti.html',{'form':form} )
 
 
 
@@ -76,7 +90,7 @@ class InvidChauffeurView(DetailView):
 
 
 
-
+@login_required
 def envoi_multiple(request):
     all = Chauffeur.objects.all()
     if request.method== 'GET':
@@ -137,6 +151,33 @@ def auto_create(request):
     if request.method == 'GET':
         with open ('new_file.html', 'x') as f :
             f.read 
+
+
+
+def localisation_info(request):
+        _user =get_object_or_404(User , id=1)
+        if _user:
+            loc_post=Post.objects.get(author=_user)
+            local_post=loc_post.localinfo()
+
+        return render(request, 'localisation.html',{'locpost': local_post} )
+
+
+
+def try_local(request,id):
+    if request.method=='get':
+        _user=User.objects.get(id=id)
+        _post= Post.object.create(author=_user)
+        if _post:
+            _post.localinfo()
+            return (render, 'trylocal.html', {'user': _user , 'post': _post})
+
+
+
+
+
+
+
 
 
 
