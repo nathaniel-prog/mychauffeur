@@ -42,6 +42,8 @@ class Post(models.Model):
         if self.body and self.num_phone:
             account_sid = key_account_sid
             auth_token = key_auth_token
+
+
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
@@ -79,11 +81,18 @@ class Chauffeur(models.Model):
         return str(self.name)
 
     def save(self , *args , **kwargs):
+
         account_sid = key_account_sid
         auth_token = key_auth_token
-        client = Client(account_sid, auth_token)
-        message = client.messages.create(
-                body=f'  {self.name} hii  ',
+
+
+        if self.name and self.num_phone:
+
+            client = Client(account_sid, auth_token)
+
+            message = client.messages.create(
+                body=f' salut  {self.name} comment va tu ',
+
                 from_='+12543312099',
                 to=f'{self.num_phone}',
 
@@ -103,22 +112,25 @@ class Chauffeur(models.Model):
 class Score(models.Model):
     result= models.PositiveIntegerField()
 
-    def __str__(self):
-        return str(self.result)
+
+
+
+
+
 
     def save(self, *args, **kwargs):
+        account_sid = key_account_sid
+        auth_token = key_auth_token
         if self.result:
-            self.result+=13
-            account_sid = key_account_sid
-            auth_token = key_auth_token
             client = Client(account_sid, auth_token)
 
-            message = client.messages.create(
+        message = client.messages.create(
                 body=f' votre burger est pret le livreur arrive dans{self.result } minutes , preparez 49 NIS',
                 from_='+12543312099',
                 to='+972548786251'
         )
-            print(message.sid)
+        
+        print(message.sid)
 
         return super().save(*args,**kwargs)
 
@@ -126,6 +138,10 @@ class Score(models.Model):
         if self.result:
             bound_sms = receive_sms.send_sms()
             return super().respons(*args, **kwargs)
+
+
+def __str__(self):
+    return str(self.result)
 
 
 
