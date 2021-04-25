@@ -1,7 +1,9 @@
 import time
 import datetime
 import json
-import restapi
+
+from findchauffeur.settings import *
+from Nathaniel.models import Post
 
 
 
@@ -9,7 +11,15 @@ import restapi
 
 
 
+def ask_destinat(ville):
+    r=Post.objects.filter(titre=ville)
+    for obj in r:
+        if r.count()>1:
+            return(obj.titre)
 
 
-def user_location(longitude,lattitude):
+ask_destinat('ashdod')
+
+
+
 

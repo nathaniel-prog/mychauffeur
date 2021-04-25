@@ -1,5 +1,6 @@
 secret.py
 
 *.cpython-38.pyc
+.pyc
 /html
 

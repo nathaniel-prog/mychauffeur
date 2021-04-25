@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<form action="/where" method="post">
+    <label>where do you want to go ?</label>
+    <input type="text" name="q">
+    {% csrf_token %}
+
+<button type="submit"  >send </button>
+
+
+
+
+</form>
+
+
+{% if check %}
+
+{% for post in posts %}
+<p> you have {{post.author}}: num phone {{post.num_phone}}  who looking for {{post.titre}} at {{post.other}}</p>
+
+{% endfor %}
+{% endif %}
+
+<br>
+<br>
+<br>
+
+<h3> Back to <a href="{% url 'home2' %}"> homepage</a> </h3>
+
+</body>
+</html>

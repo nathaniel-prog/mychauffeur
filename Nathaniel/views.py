@@ -6,12 +6,13 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import login as auth_login , authenticate
 import asyncio
 from django.contrib import messages
-
+import datetime
 from django.urls import reverse
 from .models import Chauffeur , Score , Post , PhoneNumber , User
 from django.views.generic import ListView, DetailView , TemplateView
 from django.http import HttpResponse , HttpResponseRedirect
 from .forms import SmsChauffeur , HomePost , Ask_destination
+from .test import ask_destinat
 
 # Create your views here.
 
@@ -62,12 +63,19 @@ def envoi_sms(request):
 def ask_dest(request):
     if request.method == 'POST':
         form = Ask_destination(request.POST )
+        titre= Post.objects.filter(titre=str(form))
+
+
+
         if form.is_valid():
             user=form.save()
-            return HttpResponseRedirect('')
+
+            return render(request ,'ask_desti.html',{'form':form , 'titres':titre} )
+
     else:
         form= Ask_destination()
         return render(request ,'ask_desti.html',{'form':form} )
+
 
 
 
@@ -155,12 +163,12 @@ def auto_create(request):
 
 
 def localisation_info(request):
-        _user =get_object_or_404(User , id=1)
+        _user =get_object_or_404(User,id=1)
         if _user:
             loc_post=Post.objects.get(author=_user)
-            local_post=loc_post.localinfo()
+            local=loc_post.localinfo()
 
-        return render(request, 'localisation.html',{'locpost': local_post} )
+        return render(request, 'localisation.html',{'local': local} ,{'loc_post':loc_post} )
 
 
 
@@ -170,7 +178,24 @@ def try_local(request,id):
         _post= Post.object.create(author=_user)
         if _post:
             _post.localinfo()
-            return (render, 'trylocal.html', {'user': _user , 'post': _post})
+            return render(request, 'trylocal.html', {'user': _user , 'post': _post})
+
+
+def where(request):
+    if request.method == 'POST':
+        query = request.POST["q"]
+        post=Post.objects.all()
+
+
+        if query:
+            check_choutafout = ask_destinat(query)
+
+
+        return render(request,'where.html', {'check': check_choutafout , 'posts':post , })
+
+    if request.method== 'GET':
+        return render(request,'where.html', )
+
 
 
 

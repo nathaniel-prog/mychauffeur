@@ -23,7 +23,8 @@ urlpatterns = [
     path('multiple', views.envoi_multiple, name='multiple'),
     path('localisation', views.localisation_info, name='localisation'),
     path('try_local<int:pk>',views.try_local, name='trylocal'),
-    path('alluser',views.listofuser, name='listofuser')
+    path('alluser',views.listofuser, name='listofuser'),
+    path('where', views.where , name= 'where')
 
     #path('pick<int:pk>', pickchauffeur(), name='pick')
 

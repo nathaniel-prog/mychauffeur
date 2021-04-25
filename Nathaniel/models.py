@@ -5,7 +5,12 @@ from twilio.rest import Client
 from twilio.twiml.voice_response import VoiceResponse, Say
 from .secret import key_account_sid , key_auth_token
 import requests
+import datetime
+import pytz
+dt_mtn=datetime.datetime.now(tz=pytz.timezone('Asia/Jerusalem'))
+from django.contrib import messages
 from Nathaniel.insert_function import with_city
+from django.utils import timezone
 import phonenumbers
 import phonenumber_field
 from django.conf import settings
@@ -22,13 +27,16 @@ from . import receive_sms
 
 res = requests.get('https://ipinfo.io/')
 data= res.json()
+now = datetime.datetime.now()
 
 class Post(models.Model):
-    titre= models.CharField(max_length=150,default='it was nice', null=True)
+    titre= models.CharField(max_length=150,default='', null=True)
     author= models.ForeignKey(User,on_delete=models.CASCADE)
     body= models.TextField(default='where do you want to go ? ')
-    other= models.CharField(max_length=225, default='yes')
+    other= models.DateTimeField(auto_now_add=False , default=dt_mtn)
+
     num_phone = PhoneNumberField( null=True, default='+972')
+
 
     def localinfo(self):
         if self.author:
@@ -36,7 +44,7 @@ class Post(models.Model):
 
     def shoutafout(self):
         if len(self.titre=='ashdod')>1:
-            return 'someone looking for ashdod too'
+            return messages.info(requests,f'{self.author} looking for ashdod too')
 
     def save(self , *args , **kwargs):
         if self.body and self.num_phone:
@@ -56,6 +64,9 @@ class Post(models.Model):
 
         return super().save(*args, **kwargs)
 
+    def __str__(self):
+        return f' {self.author} wants to go to {self.titre} '
+
 
 
 
@@ -68,6 +79,8 @@ class Chauffeur(models.Model):
     name= models.CharField(max_length=125 , null=False)
     date_of_birth=models.DateField(default=date.today())
     date_inscription=models.DateField(default=date.today())
+    hour = models.TimeField(auto_now=False, auto_now_add=False, null=True)
+
     course=models.ForeignKey(User , null=True , on_delete=models.CASCADE)
 
     num_phone=PhoneNumberField(unique=True , null=True , default='+972')
