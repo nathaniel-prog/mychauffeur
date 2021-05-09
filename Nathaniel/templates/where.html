@@ -21,10 +21,12 @@
 </form>
 
 
-{% if check %}
 
-{% for post in posts %}
-<p> you have {{post.author}}: num phone {{post.num_phone}}  who looking for {{post.titre}} at {{post.other}}</p>
+<p>{{archive}}</p>
+
+{% if archives %}
+{% for info in archive %}
+<p> you have {{info.author}}: num phone {{info.num_phone}}  who looking for {{info.titre}} at {{info.other}}</p>
 
 {% endfor %}
 {% endif %}
@@ -34,6 +36,6 @@
 <br>
 
 <h3> Back to <a href="{% url 'home2' %}"> homepage</a> </h3>
-
+<h3> Back to <a href="{% url 'welcome' %}"> logout</a> </h3>
 </body>
 </html>

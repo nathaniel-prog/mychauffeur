@@ -43,8 +43,9 @@ class Post(models.Model):
             return with_city()
 
     def shoutafout(self):
-        if len(self.titre=='ashdod')>1:
-            return messages.info(requests,f'{self.author} looking for ashdod too')
+        archive= Post.objects.filter(titre=self)
+        if self.titre in archive:
+            return messages.info(requests,f'you are not alone to go to {self.titre}')
 
     def save(self , *args , **kwargs):
         if self.body and self.num_phone:

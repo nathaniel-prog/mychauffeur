@@ -12,7 +12,7 @@ from .models import Chauffeur , Score , Post , PhoneNumber , User
 from django.views.generic import ListView, DetailView , TemplateView
 from django.http import HttpResponse , HttpResponseRedirect
 from .forms import SmsChauffeur , HomePost , Ask_destination
-from .test import ask_destinat
+from .test import ask_destinat , bodek
 
 # Create your views here.
 
@@ -183,18 +183,22 @@ def try_local(request,id):
 
 def where(request):
     if request.method == 'POST':
+
+        post = Post.objects.all()
         query = request.POST["q"]
-        post=Post.objects.all()
+        archives = Post.objects.filter(titre=query).count()
+        archive = Post.objects.filter(titre=query)
+        if archives>=2:
+            archive
 
 
-        if query:
-            check_choutafout = ask_destinat(query)
 
 
-        return render(request,'where.html', {'check': check_choutafout , 'posts':post , })
+        return render(request,'where.html', {'archive': archive , 'posts':post ,'archives':archives })
 
-    if request.method== 'GET':
-        return render(request,'where.html', )
+    else :
+        if request.method== 'GET':
+            return render(request,'where.html', )
 
 
 
