@@ -7,10 +7,10 @@ from .secret import key_account_sid , key_auth_token
 import requests
 import datetime
 import pytz
-dt_mtn=datetime.datetime.now(tz=pytz.timezone('Asia/Jerusalem'))
+
 from django.contrib import messages
 from Nathaniel.insert_function import with_city
-from django.utils import timezone
+
 import phonenumbers
 import phonenumber_field
 from django.conf import settings
@@ -19,7 +19,11 @@ from phonenumbers.util import unicod
 from phonenumber_field.modelfields import PhoneNumberField
 from . import receive_sms
 
+from django.utils import timezone
 
+now = timezone.now()
+
+dt_mtn=datetime.datetime.now(tz=pytz.timezone('Asia/Jerusalem'))
 
 
 
@@ -33,7 +37,7 @@ class Post(models.Model):
     titre= models.CharField(max_length=150,default='', null=True)
     author= models.ForeignKey(User,on_delete=models.CASCADE)
     body= models.TextField(default='where do you want to go ? ')
-    other= models.DateTimeField(auto_now_add=False , default=dt_mtn)
+    other= models.DateTimeField(auto_now_add=False , default=now)
 
     num_phone = PhoneNumberField( null=True, default='+972')
 
@@ -47,23 +51,6 @@ class Post(models.Model):
         if self.titre in archive:
             return messages.info(requests,f'you are not alone to go to {self.titre}')
 
-    def save(self , *args , **kwargs):
-        if self.body and self.num_phone:
-            account_sid = key_account_sid
-            auth_token = key_auth_token
-
-
-            client = Client(account_sid, auth_token)
-
-            message = client.messages.create(
-                body=(' from  you are in : {} {} '.format(Post.localinfo(self),self.author)),
-                from_='+12543312099',
-                to=f'{self.num_phone}',
-
-            )
-            print(message.sid)
-
-        return super().save(*args, **kwargs)
 
     def __str__(self):
         return f' {self.author} wants to go to {self.titre} '

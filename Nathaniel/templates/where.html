@@ -31,6 +31,16 @@
 {% endfor %}
 {% endif %}
 
+<div>
+{% if messages %}
+<ul class="message">
+   {% for message in messages %}
+	   <li style="color:blue">{{ message }}</li>
+   {% endfor %}
+</ul>
+{% endif %}
+
+
 <br>
 <br>
 <br>

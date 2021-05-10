@@ -1,6 +1,7 @@
 
 from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 from django.contrib.auth import login as auth_login
 
 from django.contrib.auth import login as auth_login , authenticate
@@ -183,18 +184,17 @@ def try_local(request,id):
 
 def where(request):
     if request.method == 'POST':
-
-        post = Post.objects.all()
         query = request.POST["q"]
         archives = Post.objects.filter(titre=query).count()
         archive = Post.objects.filter(titre=query)
         if archives>=2:
             archive
+        else:
+            messages.error(request, 'no result found')
+        return render(request,'where.html', {'archive': archive ,  'archives':archives })
 
 
 
-
-        return render(request,'where.html', {'archive': archive , 'posts':post ,'archives':archives })
 
     else :
         if request.method== 'GET':
