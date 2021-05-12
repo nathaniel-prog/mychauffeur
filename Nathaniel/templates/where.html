@@ -1,13 +1,19 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+{% block content %}
 
-
-
+<br>
+<br>
 <form action="/where" method="post">
     <label>where do you want to go ?</label>
     <input type="text" name="q">
@@ -29,23 +35,27 @@
 <p> you have {{info.author}}: num phone {{info.num_phone}}  who looking for {{info.titre}} at {{info.other}}</p>
 
 {% endfor %}
-{% endif %}
 
 <div>
-{% if messages %}
+{% elif messages %}
 <ul class="message">
    {% for message in messages %}
 	   <li style="color:blue">{{ message }}</li>
    {% endfor %}
 </ul>
+
 {% endif %}
 
 
-<br>
-<br>
-<br>
+
+
+
 
 <h3> Back to <a href="{% url 'home2' %}"> homepage</a> </h3>
 <h3> Back to <a href="{% url 'welcome' %}"> logout</a> </h3>
+
+    {% endblock %}
+
+
 </body>
 </html>

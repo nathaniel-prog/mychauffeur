@@ -7,6 +7,30 @@ ul {
 }
 
 
+#register{
+
+width: 200px;
+height: 1000px;
+background-color: #082F31 ;
+position: left;
+display : flex;
+margin: 50px;
+
+
+
+}
+
+#signin{
+width: 200px;
+height: 100px;
+background-color: #290831 ;
+position: rigth;
+display : flex;
+margin: 50px;
+
+
+}
+
 li {
   float: left;
 }

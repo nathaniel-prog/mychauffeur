@@ -190,7 +190,7 @@ def where(request):
         if archives>=2:
             archive
         else:
-            messages.error(request, 'no result found')
+            messages.error(request, 'no one go there today')
         return render(request,'where.html', {'archive': archive ,  'archives':archives })
 
 

@@ -23,7 +23,7 @@ class SmsChauffeur(forms.ModelForm):
 class Ask_destination(forms.ModelForm):
     class Meta:
         model= Post
-        fields=['titre','author',  'body', 'num_phone' ]
+        fields=['titre','author',  'body', 'num_phone','other' ]
 
 
 

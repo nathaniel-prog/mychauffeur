@@ -37,7 +37,8 @@ class Post(models.Model):
     titre= models.CharField(max_length=150,default='', null=True)
     author= models.ForeignKey(User,on_delete=models.CASCADE)
     body= models.TextField(default='where do you want to go ? ')
-    other= models.DateTimeField(auto_now_add=False , default=now)
+    other = models.DateTimeField(auto_now_add=False , default=now)
+
 
     num_phone = PhoneNumberField( null=True, default='+972')
 
