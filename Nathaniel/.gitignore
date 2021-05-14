@@ -2,3 +2,5 @@ secret.py
 
 *.pyc
 
+models.py
+

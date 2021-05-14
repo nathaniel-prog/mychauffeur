@@ -1,6 +1,7 @@
 
 from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponseRedirect
+from django.dispatch import Signal
 
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -112,6 +113,21 @@ class HomeView(TemplateView):
 
 def home_2(request):
     return render(request , 'home2.html')
+
+def fixdate(request):
+    if request.method == 'POST':
+        query = request.POST["q"]
+
+        if query:
+            savedate = Chauffeur.objects.create(date=query, )
+            return render(request ,'datehour.html' ,{'savedate': savedate})
+    else:
+        if request.method== 'GET':
+            return render(request, 'datehour.html', )
+
+
+
+
 
 
 
