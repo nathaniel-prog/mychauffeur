@@ -15,9 +15,29 @@ var year = new Date.getFullYear()
 
 </script>
 
+<form action="" method="post">
+  <label> fixer vos date</label>
+<input type="datetime-local" value="2021 " name="q">
+<input type="submit" >
+{% csrf_token %}
 
-<label> fixer vos date</label>
-<input type="date" value="2021 ">
+</form>
+
+
+<h2>{{savedate}}</h2>
+ <div>
+
+    <label for="message"> votre message </label>
+    <textarea spellcheck="true" name='' id= '' cols='30' rows='10' placeholder="Your opinion">
+
+    </textarea>
+
+
+
+    </div>
+
+
+
 
 
 </body>
