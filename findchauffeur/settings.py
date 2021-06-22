@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Nathaniel',  'twilio',
-    'phonenumber_field','phonenumbers' , 'flask','access', 'pygeoip']
+    'phonenumber_field','phonenumbers' , 'flask','access']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

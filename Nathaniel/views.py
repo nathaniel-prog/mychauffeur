@@ -1,27 +1,37 @@
 
 from django.shortcuts import render , redirect , get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required , permission_required
+from django.contrib.auth import logout
+from Nathaniel.insert_function import with_city
 from datetime import datetime
 from django.contrib.auth import login as auth_login
-
 from django.contrib.auth import login as auth_login , authenticate
-import asyncio
 from django.contrib import messages
 import datetime
 from django.urls import reverse
 from .models import Chauffeur , Score , Post , PhoneNumber , User
-from django.views.generic import ListView, DetailView , TemplateView
+from django.views.generic import ListView, DetailView , TemplateView , CreateView
 from django.http import HttpResponse , HttpResponseRedirect
 from .forms import SmsChauffeur , HomePost , Ask_destination
 from .test import ask_destinat , bodek
+from django.contrib.auth import logout
 
-# Create your views here.
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('welcome')
+
 
 
 
 
 def test(request):
-    return HttpResponse('je ffffffouuuuu')
+    if request.user.is_anonymous== False:
+        return HttpResponse('je ffffffouuuuu')
+    else:
+        return redirect('login')
 
 
 def listofuser(request):
@@ -29,8 +39,16 @@ def listofuser(request):
     return render(request,'all_users.html', {'all': _all})
 
 
+@ login_required
+def home_2(request):
+
+    findlocal = with_city()
+    return render(request, 'home2.html', {'findlocal': findlocal})
 
 
+class PostListView(ListView):
+    model=Post
+    template_name = 'post_list.html'
 
 
 
@@ -53,7 +71,7 @@ def envoi_sms(request):
     if request.method == 'POST':
         form = SmsChauffeur(request.POST )
         if form.is_valid():
-            form.save()
+            form.cleaned_data
             return render(request, 'sms.html', {'form': form})
     else:
         form= SmsChauffeur()
@@ -62,11 +80,10 @@ def envoi_sms(request):
 
 
 def ask_dest(request):
+
     if request.method == 'POST':
         form = Ask_destination(request.POST )
         titre= Post.objects.filter(titre=str(form))
-
-
 
         if form.is_valid():
             user=form.save()
@@ -74,8 +91,12 @@ def ask_dest(request):
             return render(request ,'ask_desti.html',{'form':form , 'titres':titre} )
 
     else:
-        form= Ask_destination()
-        return render(request ,'ask_desti.html',{'form':form} )
+        form = Ask_destination()
+        return render(request, 'ask_desti.html', {'form': form})
+
+
+
+
 
 
 
@@ -121,9 +142,6 @@ def radio_label(request):
     return render(request,'radio.html',context)
 
 
-def phone_number(request):
-    context={}
-    ph_ = PhoneNumber
 
 
 
@@ -152,14 +170,7 @@ class HomeView(TemplateView):
 
 
 
-def home_2(request):
-    return render(request , 'home2.html')
 
-
-def auto_create(request):
-    if request.method == 'GET':
-        with open ('new_file.html', 'x') as f :
-            f.read 
 
 
 
@@ -199,6 +210,37 @@ def where(request):
     else :
         if request.method== 'GET':
             return render(request,'where.html', )
+
+
+def effacer_donées(request):
+    Nathaniel= User.objects.get(id=1)
+    infoNath= Nathaniel.post_set.all()
+    if request.method == 'GET':
+        infoNath.delete()
+        nath='nathaniel données effaées'
+    return render(request, 'futur.html', {'nath':nath})
+
+
+
+class CreatePost(CreateView):
+    model=Post
+    fields = ['titre','body','author']
+
+    def form_valid(self, form):
+        form.instance.author=self.request.user
+        return super().form_valid(form)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

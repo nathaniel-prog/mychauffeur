@@ -30,9 +30,12 @@
 
 </nav>
 
+{% if user.is_authenticated %}
+<h1>WELCOME {{username}}</h1>
 
-<h1>WELCOME to my site</h1>
+<p><a href="{% url 'logout' %}" > to logout </a> </p>
 
+{% else %}
 <div id="register">
     <h2> Still no member plese identify yourself</h2>
    <button type="button" class="btn ">
@@ -47,9 +50,12 @@
   <a href="{% url 'login'  %}"> to sign in </a>
       </button>
 
-
+{% endif %}
 
 </div>
+
+
+
 
 
 

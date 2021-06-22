@@ -9,7 +9,7 @@
 </head>
 <body>
 
-
+{% block content %}
 
 <H2> salut {{user}}</H2>
 
@@ -17,6 +17,8 @@
 
 <br>
 
+
+<h1> Vous etes a {{findlocal}}</h1>
 <br>
 
 
@@ -30,5 +32,7 @@
 
 
 <imput type="date"></imput>
+
+{% endblock %}
 </body>
 </html>

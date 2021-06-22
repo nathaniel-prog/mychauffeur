@@ -13,30 +13,24 @@
 
 <nav>
  <ul>
-  <li><a href="#home">Home</a></li>
+  <li><a href="{% url 'welcome' %}">Home</a></li>
   <li><a href="{% url 'drivers' %}">send message to drivers</a></li>
   <li><a href="{% url 'listofuser'%}"> list of users</a></li>
      <li><a href="{% url 'ask' %}"> schedule trip</a></li>
 
   <li style="float:righ"><a class="active" href="{% url 'where'  %}"> where </a></li>
-     <li> connected as {{user}}</li>
+
 </ul>
 
-
+ <p> connected as {{user.password}}</p>
 </nav>
 
 
-
 </head>
-
-
-
+<body>
 {% block content %}
 
 
-<br>
-<h2>HELLO</h2>
-<br>
 
 
 

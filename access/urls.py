@@ -7,7 +7,8 @@ urlpatterns = [
     path('access',views.user_no_auth),
     path('login', LoginView.as_view(template_name='login.html') , name='login'),
     path('login_d', views.login_driver , name= 'login_d'),
-    path('',views.welcome , name='welcome')
+    path('',views.welcome , name='welcome'),
+    path('loginbis', views.loginbis , name='loginbis')
 
 
 

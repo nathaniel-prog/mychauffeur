@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import User
 from django.contrib.auth import login as auth_login , authenticate
-from .form import MyUserCreationForm , NewChauffeur
+from .form import MyUserCreationForm , NewChauffeur , UserLoginForm
 from .models import User
 from django.http import HttpResponseRedirect
 
@@ -46,7 +46,18 @@ def login_driver(request):
             return HttpResponseRedirect('home2')
 
 
+def loginbis(request):
+    if request.method == 'GET':
+        form = UserLoginForm()
+        return render(request, 'login_driver.html', {'form': form})
 
+    else:
+
+        if request.method == 'POST':
+            form = UserLoginForm(request.POST)
+            if form.is_valid():
+                user = form.clean()
+            return HttpResponseRedirect('home2')
 
 
 def welcome(request):

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . views import ChauffeurListView , InvidChauffeurView , HomeView
+from . views import ChauffeurListView , InvidChauffeurView , HomeView ,PostListView
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -15,6 +15,8 @@ urlpatterns = [
    path('test',views.test,name='test'),
    path('drivers', ChauffeurListView.as_view(), name='drivers'),
    path('drivers<int:pk>',InvidChauffeurView.as_view(),name='driver'),
+    path('ddd', PostListView.as_view(), name= 'list'),
+    path('logout', views.logout_view , name='logout'),
    path('sms',views.envoi_sms , name='sendsms'),
     path('ask_desti', views.ask_dest , name='ask'),
    path('radio', views.radio_label , name='radio'),
@@ -24,7 +26,10 @@ urlpatterns = [
     path('localisation', views.localisation_info, name='localisation'),
     path('try_local<int:pk>',views.try_local, name='trylocal'),
     path('alluser',views.listofuser, name='listofuser'),
-    path('where', views.where , name= 'where')
+    path('where', views.where , name= 'where'),
+    path('futur', views.effacer_donées, name='futur')
+
+
 
     #path('pick<int:pk>', pickchauffeur(), name='pick')
 

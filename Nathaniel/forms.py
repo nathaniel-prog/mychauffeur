@@ -25,6 +25,9 @@ class Ask_destination(forms.ModelForm):
         model= Post
         fields=['titre','author',  'body', 'num_phone','other' ]
 
+        widgets = {
+            'titre': forms.TextInput(attrs={ 'placeholder':' ex haifa'})}
+
 
 
 class HomePost(forms.Form):

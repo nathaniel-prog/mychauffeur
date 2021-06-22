@@ -1,15 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+
 from twilio.rest import Client
 from twilio.twiml.voice_response import VoiceResponse, Say
 from .secret import key_account_sid , key_auth_token
 import requests
 import datetime
 import pytz
-
+import time
 from django.contrib import messages
 from Nathaniel.insert_function import with_city
+from django.urls import reverse
 
 import phonenumbers
 import phonenumber_field
@@ -37,15 +38,17 @@ class Post(models.Model):
     titre= models.CharField(max_length=150,default='', null=True)
     author= models.ForeignKey(User,on_delete=models.CASCADE)
     body= models.TextField(default='where do you want to go ? ')
-    other = models.DateTimeField(auto_now_add=False , default=now)
-
-
+    other = models.DateTimeField(auto_now_add=False , default=now )
     num_phone = PhoneNumberField( null=True, default='+972')
 
 
     def localinfo(self):
         if self.author:
             return with_city()
+
+    def get_absolute_url(self):
+        'essayer de faire une fonction qui rapport tous les post sur une page (1er page ou chauffeur page)'
+        return reverse('home2',)
 
     def shoutafout(self):
         archive= Post.objects.filter(titre=self)
@@ -66,11 +69,13 @@ class Post(models.Model):
 
 class Chauffeur(models.Model):
     name= models.CharField(max_length=125 , null=False)
-    date_of_birth=models.DateField(default=date.today())
-    date_inscription=models.DateField(default=date.today())
+    date_of_birth=models.DateField(default=dt_mtn)
+    date_inscription=models.DateField(default=dt_mtn)
     hour = models.TimeField(auto_now=False, auto_now_add=False, null=True)
+    course= models.ForeignKey(User, on_delete=models.CASCADE)
 
-    course=models.ForeignKey(User , null=True , on_delete=models.CASCADE)
+
+    
 
     num_phone=PhoneNumberField(unique=True , null=True , default='+972')
     car= models.CharField(max_length=255 ,default='Regular car', null=False)
@@ -81,6 +86,8 @@ class Chauffeur(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
 
     def save(self , *args , **kwargs):
 
@@ -103,9 +110,6 @@ class Chauffeur(models.Model):
 
         return super().save(*args, **kwargs)
 
-    def localinfo(self):
-        if self.course:
-            return with_city()
 
 
 

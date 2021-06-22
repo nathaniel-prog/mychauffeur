@@ -26,4 +26,11 @@ def with_city(requests=data):
 
 
 
+
+
+
+
+
 print(with_city())
+
+with_city()

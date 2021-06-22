@@ -7,6 +7,18 @@ ul {
 }
 
 
+.login{
+
+width: 200px;
+height: 1000px;
+background-color: #082F31 ;
+position: left;
+display : flex;
+margin: 50px;
+
+}
+
+
 #register{
 
 width: 200px;

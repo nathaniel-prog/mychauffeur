@@ -19,6 +19,7 @@ class NewChauffeur(forms.ModelForm):
 class UserLoginForm(forms.Form):
     username=forms.CharField()
     password=forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)
 
 
     def clean(self , *args , **kwargs):
