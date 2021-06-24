@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>welcome</title>
+</head>
+
+<body>
+welcome to my site
+
+{% if user.is_authenticated %}
+
+<h1>Hello {{user}}</h1>
+
+<p> to logout <a href="{% url 'logout' %} ">here </a> </p>
+
+{% else %}
+
+<p>to register lien</p>
+
+<p> to login lien </p>
+
+{% endif %}
+
+</body>
+</html>

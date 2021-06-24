@@ -4,3 +4,4 @@ secret.py
 
 models.py
 
+find . -name '*.pyc' -delete

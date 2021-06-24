@@ -2,7 +2,7 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponseRedirect
 from django.dispatch import Signal
-
+from django.contrib.auth import logout
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -10,14 +10,23 @@ from .models import Chauffeur , Score , Post , PhoneNumber , User
 from django.views.generic import ListView, DetailView , TemplateView
 from django.http import HttpResponse
 from .forms import SmsChauffeur , HomePost , ScoreForm
+import sys
 
 # Create your views here.
 
-
+limit= sys.getrecursionlimit()
+print(limit)
 
 
 def test(request):
     return HttpResponse('je commence a comprendre git')
+
+
+
+def logout(request):
+    logout(request)
+    return redirect('login')
+
 
 def testing(request):
     if request.method == 'POST':

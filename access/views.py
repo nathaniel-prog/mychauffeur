@@ -4,6 +4,9 @@ from django.contrib.auth import login as auth_login , authenticate
 from .form import MyUserCreationForm
 from .models import User
 from django.http import HttpResponseRedirect
+import sys
+
+
 
 
 # Create your views here.
@@ -34,4 +37,9 @@ def log_in(request):
 
 def login_driver(request):
     return render(request, 'login_driver.html')
+
+
+def welcome(request):
+    return render(request,'welcome.html')
+
 
