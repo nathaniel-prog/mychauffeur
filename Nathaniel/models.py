@@ -5,6 +5,7 @@ from twilio.rest import Client
 from twilio.twiml.voice_response import VoiceResponse, Say
 from Nathaniel.secret import key_account_sid , key_auth_token
 import phonenumbers
+import random
 import phonenumber_field
 from django.conf import settings
 from django.core import validators
@@ -54,6 +55,10 @@ class Post(models.Model):
 
 
 
+
+
+
+
 class Chauffeur(models.Model):
     name= models.CharField(max_length=125 , null=False)
     date_of_birth=models.DateField(default=date.today())
@@ -85,6 +90,16 @@ class Chauffeur(models.Model):
             )
             print(message.sid)
 
+        return super().save(*args, **kwargs)
+
+    def create_file(self, *args, **kwargs):
+        my_list=['a', 'ber', 'c' ,'edf']
+        if self.num_phone:
+            hasard= random.choice(my_list)
+
+            file_build = open(hasard +'.html' , "w+")
+            file_build.write('hey i am in the file')
+            file_build.close()
         return super().save(*args, **kwargs)
 
 

@@ -4,6 +4,7 @@ from . views import ChauffeurListView , InvidChauffeurView , HomeView
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+import random
 
 
 
@@ -18,7 +19,9 @@ urlpatterns = [
    path('radio', views.radio_label , name='radio'),
     path('hello', HomeView.as_view(),name='hello'),
     path('home2' ,views.home_2 , name='home2'),
-    path('date', views.fixdate , name= 'fixdate')
+    path('date', views.fixdate , name= 'fixdate'),
+    path('what', views.hasarder , name='hasarder')
+
 
     #path('pick<int:pk>', pickchauffeur(), name='pick')
 

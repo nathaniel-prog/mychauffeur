@@ -11,11 +11,36 @@ from django.views.generic import ListView, DetailView , TemplateView
 from django.http import HttpResponse
 from .forms import SmsChauffeur , HomePost , ScoreForm
 import sys
+import random
+import os
 
 # Create your views here.
 
 limit= sys.getrecursionlimit()
 print(limit)
+
+
+
+
+
+def hasarder(request):
+    path1 = r' Nathaniel\templates'
+
+    my_list = ['abc', 'cde', 'efg', 'ght']
+    hasard = random.choice(my_list)
+    temp= hasard+'.html'
+    temp_text=temp+'.txt'
+
+    file_build =path1+temp
+    file_path= os.path.join(path1,temp)
+    print(file_path)
+    if not os.path.exists(file_path):
+        with open (temp ,'r+') as f:
+            f.write('test text hello')
+
+
+        return render(request, temp)
+
 
 
 def test(request):
@@ -49,6 +74,7 @@ def envoi_sms(request):
         form = SmsChauffeur(request.POST )
         if form.is_valid():
             form.save()
+
             return render(request, 'sms.html', {'form': form})
     else:
         form= SmsChauffeur()
@@ -68,7 +94,9 @@ class InvidChauffeurView(DetailView):
         context=super(InvidChauffeurView, self).get_context_data()
         stuff = get_object_or_404(Chauffeur, id=self.kwargs['pk'])
         choosen = stuff.save()
+        new_file=stuff.create_file()
         context['choosen']= choosen
+        context['new']= new_file
 
 
         return context
