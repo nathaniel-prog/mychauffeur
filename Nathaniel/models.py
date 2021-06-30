@@ -38,7 +38,7 @@ class Post(models.Model):
     titre= models.CharField(max_length=150,default='', null=True)
     author= models.ForeignKey(User,on_delete=models.CASCADE)
     body= models.TextField(default='where do you want to go ? ')
-    other = models.DateTimeField(auto_now_add=False , default=now )
+    date = models.DateTimeField(auto_now_add=False , default=now )
     num_phone = PhoneNumberField( null=True, default='+972')
 
 
@@ -48,7 +48,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         'essayer de faire une fonction qui rapport tous les post sur une page (1er page ou chauffeur page)'
-        return reverse('home2',)
+        return reverse('where')
 
     def shoutafout(self):
         archive= Post.objects.filter(titre=self)
@@ -72,7 +72,7 @@ class Chauffeur(models.Model):
     date_of_birth=models.DateField(default=dt_mtn)
     date_inscription=models.DateField(default=dt_mtn)
     hour = models.TimeField(auto_now=False, auto_now_add=False, null=True)
-    course= models.ForeignKey(User, on_delete=models.CASCADE)
+    course= models.ForeignKey(Post, on_delete=models.CASCADE , null=True)
 
 
     

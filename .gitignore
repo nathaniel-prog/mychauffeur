@@ -5,6 +5,7 @@
 deco.py
 *.cpython-38.pyc
 .idea
+* .pyc
 newenv
 python-getting-started
 Nathaniel/__pycache__/

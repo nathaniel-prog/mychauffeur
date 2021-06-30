@@ -9,7 +9,7 @@
 {% for info in object_list %}
 <ul>
 
-    <li> {{info.titre}}, {{info.id}} here</li>
+    <li> {{info.titre}}, {{info.id}} ,<a href="{% url 'detail-user' user.id %}">  {{info.author}}</a> </li>
 
 
 </ul>

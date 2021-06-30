@@ -39,6 +39,11 @@ def listofuser(request):
     return render(request,'all_users.html', {'all': _all})
 
 
+
+
+
+
+
 @ login_required
 def home_2(request):
 
@@ -49,6 +54,31 @@ def home_2(request):
 class PostListView(ListView):
     model=Post
     template_name = 'post_list.html'
+    ordering = ['-titre']
+
+
+
+
+class CreatePostView(CreateView):
+    model = Post
+    fields=['titre','body']
+    template_name = 'post_create.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+
+class AllUserView(ListView):
+    model=User
+    template_name = 'user_list.html'
+
+
+class DetailUserView(DetailView):
+    model = User
+    template_name = 'user_detail.html'
+
 
 
 
