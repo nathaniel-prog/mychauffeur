@@ -12,6 +12,7 @@ from django.contrib import messages
 from Nathaniel.insert_function import with_city
 from django.urls import reverse
 
+
 import phonenumbers
 import phonenumber_field
 from django.conf import settings
@@ -63,6 +64,14 @@ class Post(models.Model):
 
 
 
+
+
+
+
+class Driver(models.Model):
+    name = models.CharField(max_length=125, null=False)
+    car_image = models.ImageField(default='hotelsample.jpg', upload_to='images/', null=True)
+    num_phone = PhoneNumberField(unique=True, null=True, default='+972')
 
 
 
