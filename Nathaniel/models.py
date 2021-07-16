@@ -80,8 +80,7 @@ class Chauffeur(models.Model):
     name= models.CharField(max_length=125 , null=False)
     date_of_birth=models.DateField(default=dt_mtn)
     date_inscription=models.DateField(default=dt_mtn)
-    hour = models.TimeField(auto_now=False, auto_now_add=False, null=True)
-    course= models.ForeignKey(Post, on_delete=models.CASCADE , null=True)
+
 
 
     
