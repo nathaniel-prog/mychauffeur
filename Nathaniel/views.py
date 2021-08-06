@@ -3,7 +3,7 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required , permission_required
 from django.contrib.auth import logout
 from Nathaniel.insert_function import with_city
-from datetime import datetime
+from access.models import UserProfile
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import login as auth_login , authenticate
 from django.contrib import messages
@@ -36,7 +36,13 @@ def test(request):
 
 def listofuser(request):
     _all= User.objects.all()
-    return render(request,'all_users.html', {'all': _all})
+    avatar=UserProfile.objects.all()
+    return render(request,'all_users.html', {'all': _all , 'avatar':avatar})
+
+
+
+def account_setting(request):
+    return render(request, 'profile_setting.html')
 
 
 

@@ -2,6 +2,13 @@
 
 {% block content %}
 
+
+
+*\\cette vue est valable pour les users et les drivers etant donné qu'elle regroupera les
+info necessaires pour les chauffeurs:
+(qui , cb de personne , cb valises , destination , quand , adresse )
+pour les users:
+(voire leurs posts , les eventuels covoiturages a faire ...)
 <h2> list of post for netanya</h2>
 
 
@@ -9,7 +16,7 @@
 {% for info in object_list %}
 <ul>
 
-    <li> {{info.titre}}, {{info.id}} ,<a href="{% url 'detail-user' user.id %}">  {{info.author}}</a> </li>
+    <li>{{info.author}} veut aller a  {{info.titre}} ,<a href="{% url 'detail-user' user.id %}">  {{info.author}}</a> </li>
 
 
 </ul>

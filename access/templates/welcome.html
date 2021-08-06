@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <html lang="en">
@@ -24,16 +25,37 @@
   <li><a href="{% url 'drivers' %}">send message to drivers</a></li>
   <li><a href="{% url 'ask' %}"> schedule trip</a></li>
      <li><a href="{% url 'where' %}"> where</a></li>
+     <li class="logout"><a href="{% url 'logout' %}" > to logout </a> </li>
 
 </ul>
-
 
 </nav>
 
 {% if user.is_authenticated %}
-<h1>WELCOME {{username}}</h1>
+<h1>WELCOME {{user.username}}</h1>
+<img class="profile-pic" src="{{request.user.userprofile.avatar.url}}">
 
-<p><a href="{% url 'logout' %}" > to logout </a> </p>
+
+
+
+<form action="Post">
+    <label> where do you need to go </label>
+    <input type="text" name="depart" id="depart" >
+    <label for="depart">depart</label>
+     <input type="text" name="arrivé" id="arrivé" >
+    <label for="depart">arrivé</label>
+</form>
+
+
+<div class="covoiturage">
+    <p>covoiturage</p>
+</div>
+
+
+<div class="chauffeur">
+    <p>chauffeur</p>
+</div>
+
 
 {% else %}
 <div id="register">

@@ -6,7 +6,12 @@ ul {
   background-color: #333;
 }
 
+.logout{
+position: rigth;
+margin: 50px ;
+display: flex;
 
+}
 .login{
 
 width: 200px;
@@ -49,7 +54,7 @@ li {
 
 li a {
   display: block;
-  color: white;
+  color: green;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -59,5 +64,35 @@ li a {
 
 
 li a:hover {
-  background-color: #111;
+  background-color: #008000;
 }
+
+
+.covoiturage{
+
+width:300px;
+height:300px;
+background-color: green;
+text-align: center;
+border:solid black 3px
+
+
+}
+
+.chauffeur{
+
+width:300px;
+height:300px;
+background-color: blue;
+text-align: center;
+
+
+}
+
+.profile-pic{
+max-width: 200px;
+max-height:200px;
+margin: 0 auto;
+border-radius: 50%;
+	}
+

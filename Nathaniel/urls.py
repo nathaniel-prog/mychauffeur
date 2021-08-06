@@ -33,7 +33,8 @@ urlpatterns = [
     path('where', views.where , name= 'where'),
     path('futur', views.effacer_donées, name='futur'),
     path('users', AllUserView.as_view(), name='users'),
-    path('user<int:pk>',DetailUserView.as_view(), name='detail-user' )
+    path('user<int:pk>',DetailUserView.as_view(), name='detail-user' ),
+    path('account',views.account_setting , name= 'account')
 
 
 

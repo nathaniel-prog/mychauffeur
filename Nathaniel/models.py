@@ -43,6 +43,7 @@ class Post(models.Model):
     num_phone = PhoneNumberField( null=True, default='+972')
 
 
+
     def localinfo(self):
         if self.author:
             return with_city()
@@ -80,14 +81,10 @@ class Chauffeur(models.Model):
     name= models.CharField(max_length=125 , null=False)
     date_of_birth=models.DateField(default=dt_mtn)
     date_inscription=models.DateField(default=dt_mtn)
-
-
-
-    
-
-    num_phone=PhoneNumberField(unique=True , null=True , default='+972')
     car= models.CharField(max_length=255 ,default='Regular car', null=False)
     car_image = models.ImageField(default='hotelsample.jpg', upload_to='images/', null=True)
+    num_phone = PhoneNumberField(unique=True, null=True, default='+972')
+
 
 
 

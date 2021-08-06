@@ -14,19 +14,40 @@
 
 
 {% for user in all %}
+{% for av in avatar %}
 <ul>
     <li>
         {{ user.username}} and {{user.id}}
+
     </li>
 
 
 </ul>
 
+<ul>
+    <li>
+        {{ av.user}} and {{av.id}} {{av.avatar}}
 
+    </li>
+
+
+</ul>
+
+<img  class=profil-pic' src="{{userprofile.avatar.url}}" width="100px"
+{% endfor %}
 {% endfor %}
 
 
+
+
+
+
 {% endblock %}
+
+
+
+
+
 
 
 </body>
