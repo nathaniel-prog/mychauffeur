@@ -15,8 +15,8 @@ pour les users:
 
 {% for info in object_list %}
 <ul>
-
-    <li>{{info.author}} veut aller a  {{info.titre}} ,<a href="{% url 'detail-user' user.id %}">  {{info.author}}</a> </li>
+    <li>{{info.date}}</li>
+    <li>{{info.author}} veut aller a  {{info.titre}} ,<a href="{% url 'detail-user' user.pk %}">  {{info.author}}</a> </li>
 
 
 </ul>

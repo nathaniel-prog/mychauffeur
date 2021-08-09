@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import User
 from django.contrib.auth import login as auth_login , authenticate
 from .form import MyUserCreationForm , NewChauffeur , UserLoginForm
+from Nathaniel.models import Driver
 from .models import User
 from django.http import HttpResponseRedirect
 
@@ -61,4 +62,17 @@ def loginbis(request):
 
 
 def welcome(request):
-    return render (request,'welcome.html')
+    if request.method=='GET':
+        return render (request,'welcome.html')
+    else:
+        if request.method=='POST':
+            query = request.POST["depart"]
+            if query:
+                depart= Driver.objects.filter(depart=query).count()
+                arrive = Driver.objects.filter(arrivé=query)
+                if depart >= 2:
+                    choutaf= Driver.objects.filter(depart=query)
+            context = {'choutaf':choutaf ,
+                       'arrivé':arrive}
+    return render(request,'welcome.html',context)
+

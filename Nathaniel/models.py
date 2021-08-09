@@ -1,18 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
-
 from twilio.rest import Client
 from twilio.twiml.voice_response import VoiceResponse, Say
-from .secret import key_account_sid , key_auth_token
+from .secret import key_account_sid , key_auth_token  , app_id , town_isr_api
 import requests
 import datetime
 import pytz
-import time
+import urllib
+import json
 from django.contrib import messages
 from Nathaniel.insert_function import with_city
 from django.urls import reverse
-
-
 import phonenumbers
 import phonenumber_field
 from django.conf import settings
@@ -29,6 +27,16 @@ dt_mtn=datetime.datetime.now(tz=pytz.timezone('Asia/Jerusalem'))
 
 
 
+url = 'https://parseapi.back4app.com/classes/Israelcities_City/town?keys=name,country,location'
+headers = {
+    'X-Parse-Application-Id': app_id, # This is your app's application id
+    'X-Parse-REST-API-Key': town_isr_api # This is your app's REST API key
+}
+data = json.loads(requests.get(url, headers=headers).content.decode('utf-8')) # Here you have the data that you need
+print(json.dumps(data, indent=2))
+
+
+
 
 
 res = requests.get('https://ipinfo.io/')
@@ -38,9 +46,15 @@ now = datetime.datetime.now()
 class Post(models.Model):
     titre= models.CharField(max_length=150,default='', null=True)
     author= models.ForeignKey(User,on_delete=models.CASCADE)
-    body= models.TextField(default='where do you want to go ? ')
+    body = models.TextField(default='where do you want to go ? ')
+
     date = models.DateTimeField(auto_now_add=False , default=now )
-    num_phone = PhoneNumberField( null=True, default='+972')
+
+
+
+    num_phone = PhoneNumberField( null=True, default='+972' )
+
+
 
 
 
@@ -73,6 +87,11 @@ class Driver(models.Model):
     name = models.CharField(max_length=125, null=False)
     car_image = models.ImageField(default='hotelsample.jpg', upload_to='images/', null=True)
     num_phone = PhoneNumberField(unique=True, null=True, default='+972')
+    depart = models.CharField(max_length=255, null=False, help_text='ex tahanat mercazit netanya')
+    arrivé=models.CharField(max_length=255, null=False , default='bengourion')
+    date=models.DateField(default=timezone.now())
+    time= models.TimeField(auto_now=True)
+    confirmation= models.BooleanField(default=False , verbose_name='confirmer votre trajet ')
 
 
 

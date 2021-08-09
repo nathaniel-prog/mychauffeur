@@ -34,10 +34,6 @@ def test(request):
         return redirect('login')
 
 
-def listofuser(request):
-    _all= User.objects.all()
-    avatar=UserProfile.objects.all()
-    return render(request,'all_users.html', {'all': _all , 'avatar':avatar})
 
 
 
@@ -59,6 +55,7 @@ def home_2(request):
 
 class PostListView(ListView):
     model=Post
+    fields = ['titre', 'body']
     template_name = 'post_list.html'
     ordering = ['-titre']
 
@@ -170,12 +167,7 @@ def envoi_multiple(request):
 
 
 
-def radio_label(request):
-    context={}
-    ch=Chauffeur.objects.all()
-    context['chauffeurs']= ch
 
-    return render(request,'radio.html',context)
 
 
 
@@ -222,8 +214,11 @@ def localisation_info(request):
 
 def try_local(request,id):
     if request.method=='get':
-        _user=User.objects.get(id=id)
-        _post= Post.object.create(author=_user)
+        return render(request, 'trylocal.html')
+    else:
+        if request.method== 'POST':
+            _user=User.objects.get(id=id)
+            _post= Post.object.create(author=_user)
         if _post:
             _post.localinfo()
             return render(request, 'trylocal.html', {'user': _user , 'post': _post})
