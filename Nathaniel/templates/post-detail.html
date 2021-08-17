@@ -1,0 +1,25 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fiche info</title>
+</head>
+<body>
+
+
+
+<H1> {{object.titre}} ,{{object.num_phone}}</H1>
+{% if user == post.author %}
+<button><a href="{%  url 'postupdate' post.id %}" > modification </a></button>
+
+{% endif %}
+
+
+
+
+
+</body>
+</html>

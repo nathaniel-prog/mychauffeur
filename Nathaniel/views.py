@@ -1,7 +1,7 @@
 
 from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required , permission_required
-from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin ,UserPassesTestMixin
 from Nathaniel.insert_function import with_city
 from access.models import UserProfile
 from django.contrib.auth import login as auth_login
@@ -10,7 +10,7 @@ from django.contrib import messages
 import datetime
 from django.urls import reverse
 from .models import Chauffeur , Score , Post , PhoneNumber , User
-from django.views.generic import ListView, DetailView , TemplateView , CreateView
+from django.views.generic import ListView, DetailView , TemplateView , CreateView,UpdateView
 from django.http import HttpResponse , HttpResponseRedirect
 from .forms import SmsChauffeur , HomePost , Ask_destination
 from .test import ask_destinat , bodek
@@ -53,23 +53,56 @@ def home_2(request):
     return render(request, 'home2.html', {'findlocal': findlocal})
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     model=Post
     fields = ['titre', 'body']
     template_name = 'post_list.html'
-    ordering = ['-titre']
+    ordering = ['-titre' ]
+
+
+
+class  DetailPostView(LoginRequiredMixin, DetailView):
+    model=Post
+    template_name = 'post-detail.html'
 
 
 
 
-class CreatePostView(CreateView):
+
+
+
+
+
+
+
+
+class CreatePostView(LoginRequiredMixin,CreateView):
     model = Post
-    fields=['titre','body']
+    fields=['titre','body', 'num_phone']
     template_name = 'post_create.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+
+class UpdatePostView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+    model = Post
+    fields=['titre','body', 'num_phone']
+    template_name = 'post_create.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post= self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+
 
 
 
@@ -253,13 +286,7 @@ def effacer_donées(request):
 
 
 
-class CreatePost(CreateView):
-    model=Post
-    fields = ['titre','body','author']
 
-    def form_valid(self, form):
-        form.instance.author=self.request.user
-        return super().form_valid(form)
 
 
 

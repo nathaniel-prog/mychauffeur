@@ -7,9 +7,10 @@
 <body>
 {% for user in object_list %}
 <ul>
-   <li>{{user.id}} , {{user.username}}, {{user.num_phone}}</li>
 
-</ul>
+    <li > {{user.id}} ,,{{user.username}}  {{user.num_phone}} <a href="{% url 'detail-user' user.id %}"> ici</a> </li>
+
+{% endif %}
 {% endfor %}
 
 

@@ -1,0 +1,14 @@
+{% load static %}
+
+
+<h1>//la ville selectionnée</h1>
+
+<form action="." method="post">
+    {% csrf_token %}
+    <label>adresse</label>
+    <input type="text" name="adresse" value="adresse">
+    <label>adresse arrivé</label>
+    <input type="text" name="arrivé" value="arrivé">
+    <button type="submit"> envoyer </button>
+
+</form>

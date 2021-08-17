@@ -5,3 +5,6 @@ from Nathaniel.models import Chauffeur , Score , Post
 admin.site.register(Chauffeur)
 admin.site.register(Score)
 admin.site.register(Post)
+
+class Post(admin.ModelAdmin):
+    readonly_fields = ('date',)

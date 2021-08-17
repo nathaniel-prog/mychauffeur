@@ -39,6 +39,15 @@ print(json.dumps(data, indent=2))
 
 
 
+
+
+
+
+
+
+
+
+
 res = requests.get('https://ipinfo.io/')
 data= res.json()
 now = datetime.datetime.now()
@@ -48,11 +57,10 @@ class Post(models.Model):
     author= models.ForeignKey(User,on_delete=models.CASCADE)
     body = models.TextField(default='where do you want to go ? ')
 
+
     date = models.DateTimeField(auto_now_add=False , default=now )
-
-
-
     num_phone = PhoneNumberField( null=True, default='+972' )
+
 
 
 
@@ -100,9 +108,11 @@ class Chauffeur(models.Model):
     name= models.CharField(max_length=125 , null=False)
     date_of_birth=models.DateField(default=dt_mtn)
     date_inscription=models.DateField(default=dt_mtn)
+
     car= models.CharField(max_length=255 ,default='Regular car', null=False)
     car_image = models.ImageField(default='hotelsample.jpg', upload_to='images/', null=True)
     num_phone = PhoneNumberField(unique=True, null=True, default='+972')
+    client = models.ManyToManyField(User , related_name='user_client')
 
 
 
